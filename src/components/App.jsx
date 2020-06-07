@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ToDoList from "./ToDoList";
 
 function App() {
   const [inputText, setInputText] = useState("");
@@ -16,6 +17,15 @@ function App() {
     setInputText("");
   }
 
+  function deleteItem(id) {
+    setItems(preItems => {
+      return preItems.filter((item, index) => {
+        console.log(item);
+        return index !== id;
+      });
+    });
+  }
+
   return (
     <div className="container">
       <div className="heading">
@@ -29,8 +39,13 @@ function App() {
       </div>
       <div>
         <ul>
-          {items.map(todoItem => (
-            <li>{todoItem}</li>
+          {items.map((todoItem, inde) => (
+            <ToDoList
+              key={inde}
+              id={inde}
+              text={todoItem}
+              deleteItem={deleteItem}
+            />
           ))}
         </ul>
       </div>
